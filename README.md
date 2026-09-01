@@ -9,22 +9,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#647B84;
-    --paper:#F1EDE5;
+    --paper:#E4EFFF;
     --paper-2:#E9E3D8;
-    --smoke:#C9D5DA;
+    --smoke:#55697A;
     --smoke-deep:#2C3A45;
     --smoke-light:#AFC0CB;
-    --brass:#E8C989;
-    --line: rgba(241,237,229,0.30);
-    --line-soft: rgba(241,237,229,0.14);
+    --brass:#3C78B1;
+    --line: rgba(44,58,69,0.32);
+    --line-soft: rgba(44,58,69,0.16);
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
     margin:0;
-    background:var(--bg);
-    color:var(--paper);
+    background:var(--paper);
+    color:var(--smoke-deep);
     font-family:'Inter',sans-serif;
     font-weight:300;
     -webkit-font-smoothing:antialiased;
@@ -44,7 +43,7 @@
     background:
       linear-gradient(var(--line-soft) 1px, transparent 1px) 0 0/100% 28px,
       linear-gradient(90deg, var(--line-soft) 1px, transparent 1px) 0 0/28px 100%,
-      var(--bg);
+      var(--paper);
   }
   .crop{
     position:absolute;
@@ -52,7 +51,7 @@
     height:22px;
     opacity:0.55;
   }
-  .crop::before,.crop::after{content:"";position:absolute;background:var(--paper);}
+  .crop::before,.crop::after{content:"";position:absolute;background:var(--smoke-deep);}
   .crop::before{width:100%;height:1px;top:50%;}
   .crop::after{height:100%;width:1px;left:50%;}
   .crop.tl{top:22px;left:22px;}
@@ -78,7 +77,7 @@
   .eyebrow-word{
     font-family:'Fraunces',serif;
     font-weight:500;
-    font-size:15px;
+    font-size:22px;
     letter-spacing:0.28em;
     color:var(--smoke);
     margin:0 0 18px;
@@ -90,13 +89,13 @@
     font-size:clamp(48px,10vw,84px);
     line-height:1;
     margin:0 0 22px;
-    color:var(--paper);
+    color:var(--smoke-deep);
   }
   .names .amp{
     font-style:italic;
     font-weight:400;
     color:var(--brass);
-    font-size:0.62em;
+    font-size:0.8em;
     padding:0 0.12em;
   }
   .invite-line{
@@ -108,13 +107,134 @@
     margin:0 auto;
     line-height:1.8;
   }
+  .invite-highlight{
+    display:inline-block;
+    margin-top:8px;
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:34px;
+    letter-spacing:0.02em;
+    color:var(--brass);
+  }
+
+  /* COUNTDOWN */
+  .countdown{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    margin:40px auto 0;
+  }
+  .cd-box{
+    width:64px;
+    padding:14px 0 10px;
+    border:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .cd-num{
+    font-family:'Space Mono',monospace;
+    font-weight:700;
+    font-size:24px;
+    color:var(--smoke-deep);
+    line-height:1;
+  }
+  .cd-label{
+    font-family:'Space Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.1em;
+    color:var(--brass);
+    margin-top:8px;
+  }
+  .cd-caption{
+    text-align:center;
+    font-family:'Space Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.14em;
+    color:var(--smoke);
+    margin:16px 0 0;
+  }
+
+  /* MUSIC TOGGLE */
+  .music-toggle{
+    position:fixed;
+    top:18px;
+    right:18px;
+    z-index:50;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:var(--paper);
+    border:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:0 2px 10px rgba(44,58,69,0.18);
+  }
+  .music-toggle svg{width:18px;height:18px;color:var(--smoke-deep);}
+  .music-hint{
+    position:fixed;
+    top:26px;
+    right:66px;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+    color:var(--smoke-deep);
+    background:var(--paper);
+    border:1px solid var(--line);
+    padding:7px 12px;
+    border-radius:16px;
+    box-shadow:0 2px 8px rgba(44,58,69,0.15);
+    white-space:nowrap;
+    animation:hint-bounce 1.8s ease-in-out infinite;
+  }
+  .music-hint svg{width:13px;height:13px;flex-shrink:0;}
+  .music-hint.hidden{display:none;}
+  @keyframes hint-bounce{
+    0%,100%{transform:translateX(0);}
+    50%{transform:translateX(-5px);}
+  }
+  .music-panel{
+    position:fixed;
+    top:68px;
+    right:18px;
+    z-index:50;
+    width:300px;
+    max-width:78vw;
+    background:var(--paper);
+    border:1px solid var(--line);
+    padding:10px;
+    box-shadow:0 4px 16px rgba(44,58,69,0.2);
+    display:none;
+  }
+  .music-panel.open{display:block;}
+  .music-panel p{
+    font-family:'Space Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.06em;
+    color:var(--smoke);
+    margin:0 0 8px;
+    text-align:center;
+  }
+  .music-panel iframe{width:100%;border:0;border-radius:4px;}
+
+  @media (max-width:600px){
+    .cd-box{width:52px;padding:10px 0 8px;}
+    .cd-num{font-size:19px;}
+  }
 
   /* PULSE DIMENSION DIVIDER */
   .pulse-wrap{
     max-width:760px;
     margin:0 auto;
     padding:0 40px;
-    background:var(--bg);
+    background:var(--paper);
   }
   .pulse-wrap svg{display:block;width:100%;height:auto;}
 
@@ -162,13 +282,13 @@
     font-style:italic;
     font-weight:400;
     font-size:28px;
-    color:var(--paper);
+    color:var(--smoke-deep);
     text-align:center;
     margin:0 0 8px;
   }
   .section-sub{
     font-family:'Space Mono',monospace;
-    font-size:10.5px;
+    font-size:14px;
     letter-spacing:0.14em;
     color:var(--brass);
     text-align:center;
@@ -200,7 +320,7 @@
     font-weight:500;
     font-size:16.5px;
     line-height:1.6;
-    color:var(--paper);
+    color:var(--smoke-deep);
   }
 
   /* SITE PLAN / VENUE CARDS */
@@ -212,17 +332,23 @@
   }
   .venue-label{
     font-family:'Space Mono',monospace;
-    font-size:10px;
+    font-size:13px;
     letter-spacing:0.14em;
     color:var(--brass);
     margin-bottom:10px;
+  }
+  .venue-icon{
+    width:36px;
+    height:36px;
+    display:block;
+    margin:0 auto 14px;
   }
   .venue-name{
     font-family:'Fraunces',serif;
     font-weight:600;
     font-size:24px;
     margin:0 0 6px;
-    color:var(--paper);
+    color:var(--smoke-deep);
   }
   .venue-loc{
     font-family:'Inter',sans-serif;
@@ -234,7 +360,7 @@
   .venue-time{
     font-family:'Space Mono',monospace;
     font-size:11.5px;
-    color:var(--paper);
+    color:var(--smoke-deep);
     border-top:1px dashed var(--line);
     padding-top:14px;
     margin-bottom:22px;
@@ -248,13 +374,13 @@
     font-family:'Space Mono',monospace;
     font-size:11.5px;
     letter-spacing:0.06em;
-    color:var(--smoke-deep);
-    background:var(--brass);
+    color:var(--paper);
+    background:var(--smoke-deep);
     text-decoration:none;
     padding:12px 20px;
     transition:background 0.25s ease;
   }
-  .map-btn:hover{background:var(--paper);}
+  .map-btn:hover{background:var(--smoke);}
   .map-btn svg{width:14px;height:14px;flex-shrink:0;}
 
   .dress{
@@ -275,7 +401,7 @@
   .itin-time{
     font-family:'Space Mono',monospace;
     font-size:12.5px;
-    color:var(--paper);
+    color:var(--smoke-deep);
   }
   .itin-node{position:relative;height:100%;display:flex;align-items:center;justify-content:center;}
   .itin-node::after{
@@ -307,7 +433,7 @@
     font-family:'Fraunces',serif;
     font-weight:500;
     font-size:15px;
-    color:var(--paper);
+    color:var(--smoke-deep);
     padding-left:4px;
   }
 
@@ -325,9 +451,35 @@
     font-style:italic;
     font-size:16.5px;
     line-height:1.6;
-    color:var(--paper);
+    color:var(--smoke-deep);
     max-width:420px;
     margin:0 auto;
+  }
+
+  /* SCRIPTURE */
+  .scripture{
+    text-align:center;
+    max-width:460px;
+    margin:44px auto 54px;
+    padding:32px 14px;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .scripture-text{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:16px;
+    line-height:1.9;
+    color:var(--smoke-deep);
+    margin:0;
+  }
+  .scripture-ref{
+    font-family:'Space Mono',monospace;
+    font-size:14px;
+    letter-spacing:0.12em;
+    color:var(--brass);
+    margin:18px 0 0;
   }
 
   .coord{
@@ -346,12 +498,12 @@
     font-family:'Fraunces',serif;
     font-style:italic;
     font-size:20px;
-    color:var(--paper);
+    color:var(--smoke-deep);
     margin-bottom:6px;
   }
   .footer-tag{
     font-family:'Space Mono',monospace;
-    font-size:11px;
+    font-size:15px;
     letter-spacing:0.1em;
     color:var(--brass);
   }
@@ -379,25 +531,33 @@
   <div class="sheet-id"><span>PLANO N.º 001 — UNIÓN</span><span>ESC. 1:1</span></div>
 
   <svg class="mark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="50" cy="50" r="46" stroke="#F1EDE5" stroke-width="1"/>
-    <path d="M50 6 L50 18 M50 84 L50 94 M6 50 L18 50 M82 50 L94 50" stroke="#F1EDE5" stroke-width="1"/>
-    <path d="M33 43 Q33 30 50 30 Q67 30 67 43 L67 47 Q50 52 33 47 Z" stroke="#F1EDE5" stroke-width="1.3" stroke-linejoin="round"/>
-    <line x1="36" y1="40" x2="64" y2="40" stroke="#F1EDE5" stroke-width="0.9"/>
-    <path d="M50 20 L50 29 M45.5 24.5 L54.5 24.5" stroke="#E8C989" stroke-width="2" stroke-linecap="round"/>
-    <path d="M14 66 L34 66 L40 55 L48 76 L54 66 L86 66" stroke="#E8C989" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="50" cy="50" r="46" stroke="#55697A" stroke-width="1"/>
+    <path d="M50 6 L50 18 M50 84 L50 94 M6 50 L18 50 M82 50 L94 50" stroke="#55697A" stroke-width="1"/>
+    <path d="M33 43 Q33 30 50 30 Q67 30 67 43 L67 47 Q50 52 33 47 Z" stroke="#55697A" stroke-width="1.3" stroke-linejoin="round"/>
+    <line x1="36" y1="40" x2="64" y2="40" stroke="#55697A" stroke-width="0.9"/>
+    <path d="M50 20 L50 29 M45.5 24.5 L54.5 24.5" stroke="#3C78B1" stroke-width="2" stroke-linecap="round"/>
+    <path d="M14 66 L34 66 L40 55 L48 76 L54 66 L86 66" stroke="#3C78B1" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 
   <p class="eyebrow-word">Nos casamos</p>
   <h1 class="names">LUIS <span class="amp">&amp;</span> BESSI</h1>
-  <p class="invite-line">TE INVITAMOS A NUESTRA BODA,<br>A CONSTRUIR JUNTOS LO QUE VIENE.</p>
+  <p class="invite-line">TE INVITAMOS A ESTE GRAN DÍA,<br><span class="invite-highlight">NUESTRA BODA</span></p>
+
+  <div class="countdown" id="countdown">
+    <div class="cd-box"><span class="cd-num" id="cd-days">00</span><span class="cd-label">Días</span></div>
+    <div class="cd-box"><span class="cd-num" id="cd-hours">00</span><span class="cd-label">Horas</span></div>
+    <div class="cd-box"><span class="cd-num" id="cd-mins">00</span><span class="cd-label">Min</span></div>
+    <div class="cd-box"><span class="cd-num" id="cd-secs">00</span><span class="cd-label">Seg</span></div>
+  </div>
+  <p class="cd-caption">FALTA PARA EL 12 DE DICIEMBRE, 2026</p>
 </section>
 
 <div class="pulse-wrap">
   <svg viewBox="0 0 720 44" preserveAspectRatio="none">
-    <line x1="0" y1="22" x2="720" y2="22" stroke="#F1EDE5" stroke-opacity="0.25" stroke-width="1"/>
-    <path d="M0 22 L280 22 L296 6 L312 38 L328 14 L344 22 L720 22" stroke="#F1EDE5" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    <line x1="0" y1="14" x2="0" y2="30" stroke="#F1EDE5" stroke-opacity="0.4" stroke-width="1"/>
-    <line x1="720" y1="14" x2="720" y2="30" stroke="#F1EDE5" stroke-opacity="0.4" stroke-width="1"/>
+    <line x1="0" y1="22" x2="720" y2="22" stroke="#2C3A45" stroke-opacity="0.25" stroke-width="1"/>
+    <path d="M0 22 L280 22 L296 6 L312 38 L328 14 L344 22 L720 22" stroke="#55697A" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="0" y1="14" x2="0" y2="30" stroke="#2C3A45" stroke-opacity="0.4" stroke-width="1"/>
+    <line x1="720" y1="14" x2="720" y2="30" stroke="#2C3A45" stroke-opacity="0.4" stroke-width="1"/>
   </svg>
 </div>
 
@@ -411,8 +571,24 @@
   </div>
   <p class="frame-cap">LUIS &amp; BESSI — REGISTRO FOTOGRÁFICO 01</p>
 
+  <div class="scripture">
+    <p class="scripture-text">"Más valen dos que uno,<br>
+    porque obtienen más fruto de su trabajo.<br>
+    Si caen, el uno levanta al otro;<br>
+    pero, ¡ay del solo que cae<br>
+    y no tiene quien lo levante!<br><br>
+    Además, cuando dos se acuestan juntos,<br>
+    se calientan mutuamente;<br>
+    en cambio uno solo, ¿cómo entrará en calor?<br>
+    Y si alguien puede vencer al que está solo,<br>
+    dos podrán resistir juntos.<br>
+    Y la cuerda de tres hilos<br>
+    no se rompe fácilmente."</p>
+    <p class="scripture-ref">ECLESIASTÉS 4, 9-12</p>
+  </div>
+
   <p class="section-title">Con la bendición de</p>
-  <p class="section-sub">NUESTROS PADRES</p>
+  <p class="section-sub">DIOS Y NUESTROS PADRES</p>
 
   <div class="legend">
     <div>
@@ -435,6 +611,16 @@
   <p class="section-sub">CEREMONIA Y RECEPCIÓN</p>
 
   <div class="venue">
+    <svg class="venue-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="20" y1="2.5" x2="20" y2="8.5" stroke="#55697A" stroke-width="1.3"/>
+      <line x1="17" y1="5" x2="23" y2="5" stroke="#55697A" stroke-width="1.3"/>
+      <path d="M11 18 L20 9 L29 18" stroke="#55697A" stroke-width="1.3" fill="none" stroke-linejoin="round"/>
+      <rect x="12" y="18" width="16" height="16.5" stroke="#55697A" stroke-width="1.3"/>
+      <path d="M17.2 34.5 L17.2 26 A2.8 2.8 0 0 1 22.8 26 L22.8 34.5" stroke="#55697A" stroke-width="1.2" fill="none"/>
+      <circle cx="20" cy="14.5" r="1.4" fill="#3C78B1"/>
+      <line x1="14.5" y1="23" x2="14.5" y2="27" stroke="#55697A" stroke-width="1"/>
+      <line x1="25.5" y1="23" x2="25.5" y2="27" stroke="#55697A" stroke-width="1"/>
+    </svg>
     <p class="venue-label">01 — CEREMONIA RELIGIOSA</p>
     <p class="venue-name" style="font-size:20px;line-height:1.3;">Capilla Sagrado Corazón de Jesús<br><span style="font-size:14px;font-family:'Space Mono',monospace;letter-spacing:0.04em;color:var(--smoke);">UNICAH</span></p>
     <p class="venue-loc">Tegucigalpa, Honduras</p>
@@ -447,6 +633,14 @@
   </div>
 
   <div class="venue">
+    <svg class="venue-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="14" cy="9" r="3" stroke="#55697A" stroke-width="1.2"/>
+      <path d="M9.5 33 L10.5 17.5 Q10.5 14 14 14 Q17.5 14 17.5 17.5 L18.5 33" stroke="#55697A" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+      <circle cx="27" cy="9" r="3" stroke="#55697A" stroke-width="1.2"/>
+      <path d="M22 33 L20.3 16 Q27 11.5 33.7 16 L32 33" stroke="#55697A" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+      <line x1="18.5" y1="24" x2="20.3" y2="24" stroke="#3C78B1" stroke-width="1.6"/>
+      <path d="M18 6.5 C18.6 5.6 20 5.9 20 7 C20 8 18.8 8.7 18 9.4 C17.2 8.7 16 8 16 7 C16 5.9 17.4 5.6 18 6.5Z" fill="#3C78B1"/>
+    </svg>
     <p class="venue-label">02 — RECEPCIÓN</p>
     <p class="venue-name">Villa Betel</p>
     <p class="venue-loc">Tegucigalpa, Honduras</p>
@@ -467,10 +661,10 @@
 
 <div class="pulse-wrap">
   <svg viewBox="0 0 720 44" preserveAspectRatio="none">
-    <line x1="0" y1="22" x2="720" y2="22" stroke="#F1EDE5" stroke-opacity="0.25" stroke-width="1"/>
-    <path d="M0 22 L380 22 L396 6 L412 38 L428 14 L444 22 L720 22" stroke="#F1EDE5" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    <line x1="0" y1="14" x2="0" y2="30" stroke="#F1EDE5" stroke-opacity="0.4" stroke-width="1"/>
-    <line x1="720" y1="14" x2="720" y2="30" stroke="#F1EDE5" stroke-opacity="0.4" stroke-width="1"/>
+    <line x1="0" y1="22" x2="720" y2="22" stroke="#2C3A45" stroke-opacity="0.25" stroke-width="1"/>
+    <path d="M0 22 L380 22 L396 6 L412 38 L428 14 L444 22 L720 22" stroke="#55697A" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="0" y1="14" x2="0" y2="30" stroke="#2C3A45" stroke-opacity="0.4" stroke-width="1"/>
+    <line x1="720" y1="14" x2="720" y2="30" stroke="#2C3A45" stroke-opacity="0.4" stroke-width="1"/>
   </svg>
 </div>
 
@@ -498,10 +692,10 @@
 
 <div class="pulse-wrap">
   <svg viewBox="0 0 720 44" preserveAspectRatio="none">
-    <line x1="0" y1="22" x2="720" y2="22" stroke="#F1EDE5" stroke-opacity="0.25" stroke-width="1"/>
-    <path d="M0 22 L480 22 L496 6 L512 38 L528 14 L544 22 L720 22" stroke="#F1EDE5" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    <line x1="0" y1="14" x2="0" y2="30" stroke="#F1EDE5" stroke-opacity="0.4" stroke-width="1"/>
-    <line x1="720" y1="14" x2="720" y2="30" stroke="#F1EDE5" stroke-opacity="0.4" stroke-width="1"/>
+    <line x1="0" y1="22" x2="720" y2="22" stroke="#2C3A45" stroke-opacity="0.25" stroke-width="1"/>
+    <path d="M0 22 L480 22 L496 6 L512 38 L528 14 L544 22 L720 22" stroke="#55697A" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="0" y1="14" x2="0" y2="30" stroke="#2C3A45" stroke-opacity="0.4" stroke-width="1"/>
+    <line x1="720" y1="14" x2="720" y2="30" stroke="#2C3A45" stroke-opacity="0.4" stroke-width="1"/>
   </svg>
 </div>
 
@@ -528,17 +722,28 @@
 <section class="sheet dense-grid footer-sheet">
   <span class="crop tl"></span><span class="crop tr"></span><span class="crop bl"></span><span class="crop br"></span>
   <svg class="mark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:26px;">
-    <circle cx="50" cy="50" r="46" stroke="#F1EDE5" stroke-width="1"/>
-    <path d="M50 6 L50 18 M50 84 L50 94 M6 50 L18 50 M82 50 L94 50" stroke="#F1EDE5" stroke-width="1"/>
-    <path d="M33 43 Q33 30 50 30 Q67 30 67 43 L67 47 Q50 52 33 47 Z" stroke="#F1EDE5" stroke-width="1.3" stroke-linejoin="round"/>
-    <line x1="36" y1="40" x2="64" y2="40" stroke="#F1EDE5" stroke-width="0.9"/>
-    <path d="M50 20 L50 29 M45.5 24.5 L54.5 24.5" stroke="#E8C989" stroke-width="2" stroke-linecap="round"/>
-    <path d="M14 66 L34 66 L40 55 L48 76 L54 66 L86 66" stroke="#E8C989" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="50" cy="50" r="46" stroke="#55697A" stroke-width="1"/>
+    <path d="M50 6 L50 18 M50 84 L50 94 M6 50 L18 50 M82 50 L94 50" stroke="#55697A" stroke-width="1"/>
+    <path d="M33 43 Q33 30 50 30 Q67 30 67 43 L67 47 Q50 52 33 47 Z" stroke="#55697A" stroke-width="1.3" stroke-linejoin="round"/>
+    <line x1="36" y1="40" x2="64" y2="40" stroke="#55697A" stroke-width="0.9"/>
+    <path d="M50 20 L50 29 M45.5 24.5 L54.5 24.5" stroke="#3C78B1" stroke-width="2" stroke-linecap="round"/>
+    <path d="M14 66 L34 66 L40 55 L48 76 L54 66 L86 66" stroke="#3C78B1" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
+
+  <div class="venue" style="text-align:center;">
+    <p class="venue-label">COMPARTE TUS FOTOS</p>
+    <p class="section-title" style="font-size:22px;margin-bottom:14px;">Ayúdanos a guardar el recuerdo</p>
+    <p class="venue-loc" style="margin-bottom:22px;">Envíanos las fotos que tomes de nuestra boda a esta carpeta compartida.</p>
+    <a class="map-btn" href="https://drive.google.com/drive/folders/1vwezUoEjqNn4q89XOmfBcugn2tY2-flD?usp=sharing" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7l3-4h5l2 3h8v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7Z"/></svg>
+      SUBIR FOTOS
+    </a>
+  </div>
+
   <div class="gift-note">
     <svg class="gift-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 32 C10 25 5 19 5 13.5 A7.5 7.5 0 0 1 20 11 A7.5 7.5 0 0 1 35 13.5 C35 19 30 25 20 32Z" stroke="#F1EDE5" stroke-width="1.3"/>
-      <path d="M11 18 L16 18 L18.5 13 L21.5 23 L24 18 L29 18" stroke="#E8C989" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M20 32 C10 25 5 19 5 13.5 A7.5 7.5 0 0 1 20 11 A7.5 7.5 0 0 1 35 13.5 C35 19 30 25 20 32Z" stroke="#55697A" stroke-width="1.3"/>
+      <path d="M11 18 L16 18 L18.5 13 L21.5 23 L24 18 L29 18" stroke="#3C78B1" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     <p class="gift-text">Tu presencia es nuestro mejor regalo, pero si deseas hacernos un obsequio en efectivo será bienvenido.</p>
   </div>
@@ -547,6 +752,52 @@
   <p class="footer-tag">LUIS &amp; BESSI · #LUISYBESSI</p>
   <p class="footer-note">PLANO ELABORADO CON CARIÑO PARA NUESTROS INVITADOS<br>DOC. CONFIDENCIAL DE FAMILIA — NO REDISTRIBUIR</p>
 </section>
+
+<div class="music-hint" id="musicHint">
+  CLICK AQUÍ
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</div>
+<div class="music-toggle" id="musicToggle" title="Música">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+</div>
+<div class="music-panel" id="musicPanel">
+  <p>HERMOSA EN BLANCO — SHANE FILAN</p>
+  <iframe id="ytFrame" src="" height="160" allow="autoplay; encrypted-media" loading="lazy" allowfullscreen></iframe>
+</div>
+
+<script>
+  // Countdown al 12 de diciembre de 2026, 3:30 p.m.
+  var weddingDate = new Date("2026-12-12T15:30:00-06:00").getTime();
+  function updateCountdown(){
+    var now = new Date().getTime();
+    var diff = weddingDate - now;
+    if(diff < 0){ diff = 0; }
+    var d = Math.floor(diff / (1000*60*60*24));
+    var h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    var m = Math.floor((diff % (1000*60*60)) / (1000*60));
+    var s = Math.floor((diff % (1000*60)) / 1000);
+    document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // Música — carga el video/audio oficial de YouTube solo cuando el invitado lo pide
+  var toggle = document.getElementById('musicToggle');
+  var panel = document.getElementById('musicPanel');
+  var frame = document.getElementById('ytFrame');
+  var loaded = false;
+  toggle.addEventListener('click', function(){
+    panel.classList.toggle('open');
+    document.getElementById('musicHint').classList.add('hidden');
+    if(!loaded){
+      frame.src = "https://www.youtube.com/embed/06-XXOTP3Gc?autoplay=1";
+      loaded = true;
+    }
+  });
+</script>
 
 </body>
 </html>
